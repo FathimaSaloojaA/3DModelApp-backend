@@ -15,22 +15,22 @@ app.use(cors({
 }));
 
 
-// in your server file (before routes)
+
 app.use(express.json({ limit: "100mb" }));
 app.use(express.urlencoded({ limit: "100mb", extended: true }));
 
 
-// setup __dirname in ES module
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// static folder for uploaded files
+
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-// routes
+
 app.use("/api/models", modelRoutes);
 
-// connect DB
+
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected ✅"))
   .catch((err) => console.error("DB connection error:", err));
